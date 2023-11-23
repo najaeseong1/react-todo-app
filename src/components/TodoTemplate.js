@@ -31,7 +31,7 @@ const TodoTemplate = () => {
     },
   ]);
 
-  //id가 시퀀스 함수 (DB 연동시키면 필요없게 됨.)
+  // id값 시퀀스 함수 (DB 연동시키면 필요없게 됨.)
   const makeNewId = () => {
     if (todos.length === 0) return 1;
     return todos[todos.length - 1].id + 1; // 맨 마지막 할일 객체의 id보다 하나 크게
@@ -39,20 +39,20 @@ const TodoTemplate = () => {
 
   /*
     todoInput에게 todoText를 받아오는 함수
-    자식 컴포넌트가 부모 컴포넌트에게 데이터를 전달할 때는 
-    일반적인 props 사용이 불가능. 그래서
+    자식 컴포넌트가 부모컴포넌트에게 데이터를 전달할 때는 
+    일반적인 props 사용이 불가능.
     부모 컴포넌트에서 함수를 선언(매개변수 꼭 선언) -> props로 함수를 전달
-    자식 컴포넌트에서 전달받은 함수를 호출하면서 매개 값으로 데이터를 전달.
+    자식 컴포넌트에서 전달받은 함수를 호출하면서 매개값으로 데이터를 전달.
   */
   const addTodo = (todoText) => {
     const newTodo = {
       id: makeNewId(),
       title: todoText,
       done: false,
-    }; // fetch를 이용해서 백엔드에 insert 요청 보내야됨.
+    }; // 나중에 fetch를 이용해서 백엔드에 insert 요청 보내야됨.
 
-    // todos.push(newTodo); (x)   -> useState 변수는 setter로 변경
-    // setTodos(todos.push(newTodo));   (x)
+    // todos.push(newTodo); (x) -> useState 변수는 setter로 변경
+    // setTodos(todos.push(newTodo)); (x)
     // react의 상태변수는 불변성(immutable)을 가지기 때문에
     // 기존 상태에서 변경은 불가능 -> 새로운 상태로 만들어서 변경해야 한다.
 
@@ -60,10 +60,20 @@ const TodoTemplate = () => {
       return [...oldTodos, newTodo];
     });
   };
+
+  // 할 일 삭제 처리 함수
+  const removeTodo = (id) => {
+    // 주어진 배열의 값들을 순회하여 조건에 맞는 요소들만 모아서 새로운 배열로 리턴.
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
   return (
     <div className='TodoTemplate'>
       <TodoHeader />
-      <TodoMain todoList={todos} />
+      <TodoMain
+        todoList={todos}
+        remove={removeTodo}
+      />
       <TodoInput addTodo={addTodo} />
     </div>
   );

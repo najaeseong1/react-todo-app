@@ -28,7 +28,7 @@ const TodoInput = ({ addTodo }) => {
     // 부모 컴포넌트가 전달한 함수의 매개값으로 입력값 넘기기.
     addTodo(todoText);
 
-    // 입력이 끝나면 입력 창 비우기
+    // 입력이 끝나면 입력창 비우기
     setTodoText('');
   };
 
