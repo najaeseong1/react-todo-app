@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 const Join = () => {
   // 리다이렉트 사용하기
   const redirection = useNavigate();
+
   const API_BASE_URL = BASE + USER;
 
   // 상태변수로 회원가입 입력값 관리
@@ -217,8 +218,8 @@ const Join = () => {
     }).then((res) => {
       if (res.status === 200) {
         alert('회원가입에 성공했습니다.');
-        // 로그인 페이지로 리다리렉트
-        // window.location.href='';
+        // 로그인 페이지로 리다이렉트
+        // window.location.href = '/login';
         redirection('/login');
       } else {
         alert('서버와의 통신이 원활하지 않습니다. 관리자에게 문의하세요.');
